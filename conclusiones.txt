@@ -1,0 +1,33 @@
+Conclusiones Generales (E2E + API)
+
+1. Prueba E2E – SauceDemo
+    1. Validación completa del flujo de compra:Se automatizó de forma exitosa el recorrido completo del usuario, desde el login, selección de productos, checkout y mensaje final de confirmación “Thank you for your order”.
+    2. Selectores estables y semánticos:Se usaron selectores por id y cy.contains() para garantizar robustez ante cambios en la estructura HTML.
+    3. Sincronización con el DOM:Se aplicaron aserciones de visibilidad (should('be.visible')) y validaciones de URL para asegurar que cada paso ocurriera en el momento correcto, sin usar esperas fijas.
+    4. Interceptación de errores externos (401):Se silenció la telemetría ajena a la prueba (https://events.backtrace.io/**) para obtener logs limpios y enfocados en la lógica funcional.
+    5. Compatibilidad y ejecución:La prueba se ejecutó correctamente tanto en modo GUI (para depuración visual) como en modo headless (para CI/CD), demostrando su portabilidad.
+    6. Mejoras futuras:
+        * Implementar Page Objects para aislar lógica por página y facilitar mantenimiento.
+        * Añadir validaciones visuales o de precio total para ampliar la cobertura del flujo.
+        * Integrar reportes HTML automáticos (ej. Mochawesome).
+
+2. Prueba API – PetStore
+    1. Validación CRUD completa:Se automatizó el ciclo de vida completo de una entidad (mascota):
+        * POST: creación
+        * GET: consulta
+        * PUT: actualización
+        * GET por estado: verificación final
+    2. Gestión de IDs únicos:El uso de Date.now() permitió generar identificadores únicos, evitando conflictos con otras ejecuciones concurrentes en el entorno público de PetStore.
+    3. Manejo de consistencia eventual:Se implementaron reintentos automáticos (retries) en las consultas GET, para asegurar que los datos creados o actualizados se encuentren disponibles antes de las validaciones.Esto evitó falsos negativos causados por latencia del servicio.
+    4. Buenas prácticas REST y validación de respuesta:Se validaron los códigos de estado (200 OK) y campos específicos del body (name, status), asegurando que las operaciones respondan conforme a la especificación de la API.
+    5. Separación de escenarios:Cada operación se mantuvo en un it() independiente, lo que mejora la legibilidad, depuración y trazabilidad de fallos en los reportes.
+    6. Mejoras futuras:
+        * Agregar validaciones contractuales (schema validation con Ajv o Joi).
+        * Centralizar base URL y headers en Cypress.env() o fixtures para facilitar mantenimiento.
+        * Integrar los resultados con reportes o pipelines CI/CD.
+
+3. Conclusiones Globales
+    * Cypress resultó ser una herramienta versátil, capaz de manejar tanto UI E2E como API Testing dentro del mismo entorno, usando un enfoque declarativo y legible.
+    * Las pruebas demostraron cómo automatizar un flujo integral de validación funcional, combinando front-end y back-end.
+    * El uso de aserciones claras, selectores robustos y reintentos controlados permitió reducir los falsos fallos, logrando estabilidad y repetibilidad en la ejecución.
+    * Ambas implementaciones son reutilizables y escalables, permitiendo construir suites más amplias con mínima configuración adicional.

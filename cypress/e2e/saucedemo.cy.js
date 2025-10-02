@@ -1,4 +1,9 @@
 describe('Flujo de compra en SauceDemo', () => {
+  beforeEach(() => {
+    // silencia la telemetría (401) para no ensuciar logs
+    cy.intercept('POST', 'https://events.backtrace.io/**', { statusCode: 204, body: '' }).as('telemetry');
+  });
+
   it('Compra exitosa', () => {
     cy.visit('/');
 

@@ -5,7 +5,9 @@
   "scripts": {
     "cy:open": "cypress open",
     "cy:run": "cypress run --browser chrome",
-    "cy:headless": "cypress run --headless --browser chrome"
+    "cy:headless": "cypress run --headless --browser chrome",
+    "cy:ui": "cypress run --spec 'cypress/e2e/saucedemo.cy.js' --browser chrome",
+    "cy:api": "cypress run --spec 'cypress/e2e/petstore.cy.js' --browser chrome"
   },
   "keywords": [],
   "author": "",
