@@ -100,17 +100,6 @@ npm run cy:api
 
 ---
 
-## Qué valida este test
-
-- Login con `standard_user / secret_sauce`
-- Agregar dos productos al carrito
-- Verificar productos en el carrito
-- Completar checkout con datos de prueba
-- Confirmar mensaje **“Thank you for your order”**
-- Silenciar peticiones externas (Backtrace 401)
-
----
-
 ## Solución de problemas
 
 | Problema | Causa | Solución |
